@@ -102,7 +102,7 @@ export const generateThingy = async (username: string, filterYear?: number): Pro
 	final += `max = ${max};\n`
 	final += `min = ${min};\n`
 	final += `text = "${username}";\n`
-	final += `year = ${filterYear};\n`
+	final += `year = "${filterYear}";\n`
 
 	// Fetch the CAD file
 	let cadPath = './3d.scad'
