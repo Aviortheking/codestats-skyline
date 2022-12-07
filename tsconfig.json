@@ -1,0 +1,10 @@
+{
+	"extends": "@dzeio/config/tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "dist",
+		"baseUrl": "./"
+	},
+	"exclude": [
+		"dist"
+	]
+}
