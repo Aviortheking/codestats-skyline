@@ -3,12 +3,12 @@
 #########
 # openscad doesn't seems to work on Alpine Linux :(
 # FROM docker.io/node:alpine as IMAGE
-FROM docker.io/node:latest as IMAGE
+FROM docker.io/node:slim as IMAGE
 
 # External deps (for node-gyp add: "python3 make g++")
 # git is used to install the npm packages with git deps
 RUN apt-get update &&\
-	apt-get install git openscad -y
+	apt-get install openscad -y
 
 # run as non root user
 USER node

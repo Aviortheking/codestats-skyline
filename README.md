@@ -20,6 +20,18 @@ https://codestats-skyline.avior.me/?username=Aviortheking
 
 It will generate and allows you to download the generated STL!
 
+### render a specific year
+
+You can also render a specific year!
+
+simply add the year to the URL
+
+```
+https://codestats-skyline.avior.me/?username=Aviortheking&year=2021
+```
+
+and voilà!
+
 ## Deploy the tool yourself!
 
 You can use the Dockerfile to deploy the tool yourself!

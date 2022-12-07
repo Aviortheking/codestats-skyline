@@ -1,5 +1,6 @@
-// -- TO CHANGE START -- //
-// do not chang it yourself
+/*- TO CHANGE START */
+
+// Number of XPs in a day for each months
 jan = [6433, 12574, 12013, 14896, 6242, 12306, 11732, 22842, 25780, 7375, 1030, 2676, 8857, 7948, 11429, 21389, 13025, 5335, 8942, 4457, 14171, 9951, 10766, 7780, 29865, 24567, 7702, 24382, 17697, 12100, 16698];
 feb = [21093, 2887, 10773, 10345, 5897, 6255, 20849, 17071, 17168, 8504, 27323, 33772, 16624, 16915, 14535, 10766, 24339, 14177, 24986, 13760, 47418, 59739, 19918, 12892, 20671, 13143, 9618, 9389, 0, 0];
 mar = [23643, 29897, 23874, 26867, 20092, 8363, 6073, 10425, 26663, 111087, 30647, 19681, 19344, 15507, 17636, 12541, 7369, 17568, 17077, 15472, 9506, 6338, 8851, 21544, 24243, 7023, 5401, 7157, 20584, 23584, 16505];
@@ -12,76 +13,108 @@ sep = [8156, 14355, 7410, 7958, 5638, 1974, 7015, 3924, 559, 8996, 19943, 28816,
 oct = [7109, 11067, 13580, 24341, 10774, 11742, 19973, 23626, 30664, 9417, 16783, 9260, 14108, 9489, 4830, 28002, 21885, 16954, 15868, 16902, 19634, 22134, 24960, 11625, 10090, 13084, 20795, 8160, 11223, 5578, 1741];
 nov = [0, 13537, 30169, 11276, 6862, 13438, 10021, 14033, 11938, 10941, 3634, 23317, 33661, 22821, 30040, 13944, 13980, 10466, 8872, 9020, 10166, 37281, 31896, 15089, 15184, 14277, 8070, 13321, 11396, 9223];
 dec = [8826, 11600, 5676, 8647, 8214, 26350, 12609, 9070, 21900, 17233, 11803, 17161, 12652, 2534, 5066, 26487, 27623, 21798, 17840, 11337, 3662, 9396, 16589, 242, 0, 0, 2674, 1892, 98, 10846, 9384];
+
+// the maximum number of XPs in a day
 max = 111087;
+
+// the minimum number of XPs in a day
 min = 0;
+
+// Left aligned text for the username
 text = "Aviortheking";
-// -- TO CHANGE END -- //
 
+// Right aligned text for the year
+year = "2021";
+/* TO CHANGE END -*/
 
+// Define the maximum height
 maxHeight = 100;
+
+// Define the spacing between values
 spacing = 0;
 
-socleHeight = 20;
-textHeight = 10;
+// Define the base height
+baseHeight = 20;
+
+// Define the text height
+textHeight = baseHeight / 2;
+
+// define the minimum value to be before displaying
 minValue = 0;
 
+barSize = 10;
+
+// 33 = 31 days + 2 border)
+baseWidth = barSize * 33;
+
+// 14 = 12 months + 2 border
+baseLength = barSize * 14;
+
+
+// Function that generate a whole month
 module generateMonth(month, offset = 0) {
+
+    // loop through each days for the month
     for (index = [0 : len(month) -1 ]) {
+
+        // get the XP
         it = month[index];
-        translate([10 + (10 + spacing) * index,10 + (10 + spacing) * offset, socleHeight - 1]) {
-            cube([10,10,it < minValue ? 0 : it * maxHeight / max + 1]);
+
+        // Render the bar
+        translate([
+            barSize + (barSize + spacing) * index,
+            barSize + (barSize + spacing) * offset,
+            baseHeight - 1 // put it in the bottom part to make sure they are one
+        ]) {
+            cube([
+                barSize,
+                barSize,
+                it < minValue ? 0 : it * maxHeight / max + 1 // make it higher for the reason of the comment above
+            ]);
         }
     }
 }
 
+// merge everyting
 union() {
+    // remove part of bottom with text
     difference() {
-        cube([330, 140, socleHeight]);
-        translate([5,1.9,(socleHeight - textHeight) / 2]) {
-            rotate([90,0,0]) {
+
+        cube([baseWidth, baseLength, baseHeight]);
+
+        // if year is specified
+        if (len(year) > 0) {
+
+            // move the year to the right
+            translate([baseWidth - 5, 1.9, (baseHeight - textHeight) / 2]) {
+
+                // rotate it
+                rotate([90, 0, 0]) {
+
+                    // extrude the base
+                    linear_extrude(2)
+                    text(year, size=textHeight, halign="right");
+                }
+            }
+        }
+
+        // move the username to the left
+        translate([5, 1.9, (baseHeight - textHeight) / 2]) {
+
+            // rotate it
+            rotate([90, 0, 0]) {
+
+                // extrude the base
                 linear_extrude(2)
                 text(text, size=textHeight);
-            }    
+            }
         }
     }
 
-    for (monthIndex = [ 0 : 11 ]) {
-        if (monthIndex == 0) {
-            generateMonth(jan, monthIndex);
-        }
-        if (monthIndex == 1) {
-            generateMonth(feb, monthIndex);
-        }
-        if (monthIndex == 2) {
-            generateMonth(mar, monthIndex);
-        }
-        if (monthIndex == 3) {
-            generateMonth(apr, monthIndex);
-        }
-        if (monthIndex == 4) {
-            generateMonth(may, monthIndex);
-        }
-        if (monthIndex == 5) {
-            generateMonth(jun, monthIndex);
-        }
-        if (monthIndex == 6) {
-            generateMonth(jul, monthIndex);
-        }
-        if (monthIndex == 7) {
-            generateMonth(aug, monthIndex);
-        }
-        if (monthIndex == 8) {
-            generateMonth(sep, monthIndex);
-        }
-        if (monthIndex == 9) {
-            generateMonth(oct, monthIndex);
-        }
+    // Generate each months :D
+    months = [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec];
 
-        if (monthIndex == 10) {
-            generateMonth(nov, monthIndex);
-        }
-        if (monthIndex == 11) {
-            generateMonth(dec, monthIndex);
-        }
+    for (monthIndex = [ 0 : 11 ]) {
+        generateMonth(months[monthIndex], monthIndex);
     }
 }
