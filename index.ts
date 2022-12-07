@@ -21,6 +21,12 @@ app.get('/', async (req, res) => {
 	// Generate the STL
 	const bfr = await generateThingy(username, yearN)
 
+	if (!bfr) {
+		res.status(500)
+			.send('It seems the generator could not generate, Please open an issue on Github https://github.com/aviortheking/codestats-skyline/issues/new')
+		return
+	}
+
 	// force download the STL with a good name
 	res
 		.setHeader('Content-Disposition', `attachment; filename=${username}-${year ? year : 'full'}.stl`)
