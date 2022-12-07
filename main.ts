@@ -60,7 +60,7 @@ export const generateThingy = async (username: string, filterYear?: number): Pro
 		if (month === '') {
 			continue
 		}
-		correctedData[month] = Array(31).fill(0)
+		correctedData[month] = Array(32).fill(0)
 	}
 
 	// loop through each dates
@@ -103,6 +103,10 @@ export const generateThingy = async (username: string, filterYear?: number): Pro
 	final += `min = ${min};\n`
 	final += `text = "${username}";\n`
 	final += `year = "${filterYear}";\n`
+
+	if (process.env.NODE_ENV !== 'production') {
+		console.log(final)
+	}
 
 	// Fetch the CAD file
 	let cadPath = './3d.scad'

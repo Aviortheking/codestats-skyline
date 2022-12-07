@@ -30,6 +30,8 @@ RUN npm run build
 
 RUN npm ci --omit=dev
 
+ENV NODE_ENV=production
+
 # Expose port
 EXPOSE 3000
 
