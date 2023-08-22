@@ -1,5 +1,12 @@
 # Code::Stats Skyline
 
+<a href="https://discord.gg/QNupZ4Ywxf">
+	<img src="https://img.shields.io/discord/1143555541004726272?color=%235865F2&label=Discord" alt="Discord Link">
+</a>
+<a href="https://github.com/Aviortheking/codestats-skyline/stargazers">
+	<img src="https://img.shields.io/github/stars/Aviortheking/codestats-skyline?style=flat-square" alt="Github stars">
+</a>
+
 Tool to generate an STL using your Codestats Total XPs
 
 [Based on Github's Skyline](skyline.github.com)
